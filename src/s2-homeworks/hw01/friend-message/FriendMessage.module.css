@@ -35,7 +35,6 @@
     border: 7px solid transparent;
     border-bottom: 7px solid #0066CC;
     border-right: 7px solid #0066CC;
-    border-radius: 1px;
 }
 
 .friendName {
@@ -44,7 +43,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 22px;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .friendMessageText {
@@ -53,7 +52,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .friendTime {
