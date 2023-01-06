@@ -19,5 +19,16 @@ html {
 }
 
 .select {
+    width: 170px;
+    border-radius: 2px;
+    height: 36px;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 250px;
 
+}
+.wrapper span {
+    padding-bottom: 10px;
 }
