@@ -32,13 +32,15 @@ const HW10 = () => {
             <div className={s2.hwTitle}>Homework #10</div>
             <div className={s2.line}></div>
 
-            <div className={s2.hw}>
+            <div className={s2.hw} >
                 {isLoading ? (
-                    <div id={'hw10-loading'}>
+                    <div id={'hw10-loading'} style={{marginBottom: '206px'}}
+                    >
                         <Loader/>
                     </div>
                 ) : (
                     <SuperButton
+                        style={{marginBottom: '270px'}}
                         id={'hw10-button-start-loading'}
                         onClick={setLoading}
                     >
