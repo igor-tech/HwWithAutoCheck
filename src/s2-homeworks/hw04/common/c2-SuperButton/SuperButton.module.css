@@ -17,10 +17,10 @@
 }
 
 .disabled {
-    color: #002E5C;
     width: 133px;
     background: #004D99;
     opacity: 0.5;
+    color: white;
 }
 
 .secondary {
