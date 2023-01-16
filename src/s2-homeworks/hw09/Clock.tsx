@@ -5,22 +5,30 @@ import s from './Clock.module.css'
 
 function Clock() {
     const [timerId, setTimerId] = useState<number | undefined>(0)
+    const [timerId2, setTimerId2] = useState<number | undefined>(0)
     // for autotests // не менять // можно подсунуть в локалСторэдж нужную дату, чтоб увидеть как она отображается
     const [date, setDate] = useState<Date>(new Date(restoreState('hw9-date', Date.now())))
     const [show, setShow] = useState<boolean>(false)
 
+    // const start = () => {
+    //     // пишут студенты // запустить часы (должно отображаться реальное время, а не +1)
+    //     // сохранить ид таймера (https://learn.javascript.ru/settimeout-setinterval#setinterval)
+    //     setTimerId(+setInterval(() => setDate(new Date()),1000))
+    // }
+
     const start = () => {
-        // пишут студенты // запустить часы (должно отображаться реальное время, а не +1)
-        // сохранить ид таймера (https://learn.javascript.ru/settimeout-setinterval#setinterval)
-        const id: number = window.setInterval(() => {
-            setDate(new Date())
-        },1000)
-        setTimerId(id)
+        setTimerId(function run() {
+            setDate(new Date(restoreState('hw9-date', Date.now())))
+            setTimeout(run, 1000)
+            return 1
+        } )
+
     }
 
     const stop = () => {
-       clearInterval(timerId)
-        setTimerId(0)
+        clearInterval(timerId)
+        clearTimeout(timerId)
+
     }
 
     const onMouseEnter = () => { // пишут студенты // показать дату если наведена мышка
@@ -32,15 +40,15 @@ function Clock() {
     }
 
 
-    let stringDateFormatter = new Intl.DateTimeFormat("ru");
-    let stringTimeFormatter = new Intl.DateTimeFormat("ru", {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric"
+    let stringDateFormatter = new Intl.DateTimeFormat('ru');
+    let stringTimeFormatter = new Intl.DateTimeFormat('ru', {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
     });
 
-    const stringTime = stringTimeFormatter.format(date)|| <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
-    const stringDate = stringDateFormatter.format(date)|| <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
+    const stringTime = stringTimeFormatter.format(date) || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
+    const stringDate = stringDateFormatter.format(date) || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
 
     // день недели на английском, месяц на английском (https://learn.javascript.ru/intl#intl-datetimeformat)
 
