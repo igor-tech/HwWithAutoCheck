@@ -5,6 +5,8 @@ import axios from 'axios'
 import SuperPagination from './common/c9-SuperPagination/SuperPagination'
 import {useSearchParams} from 'react-router-dom'
 import SuperSort from './common/c10-SuperSort/SuperSort'
+import {serialize} from 'v8';
+import {Loader} from '../hw10/Loader';
 
 /*
 * 1 - дописать SuperPagination
@@ -51,36 +53,36 @@ const HW15 = () => {
         setLoading(true)
         getTechs(params)
             .then((res) => {
-                // делает студент
-
-                // сохранить пришедшие данные
-
-                //
+                setTechs(res!.data.techs)
+                setTotalCount(res!.data.totalCount)
+                setLoading(false)
             })
     }
 
     const onChangePagination = (newPage: number, newCount: number) => {
-        // делает студент
+        if (newPage !== page) {
+            setCount(newCount)
+            setPage(newPage)
 
-        // setPage(
-        // setCount(
+            sendQuery({page: newPage, count: newCount})
+            setSearchParams({page: newPage.toString(), count: newCount.toString()})
+        } else {
+            setPage(1)
+            setCount(newCount)
+            sendQuery({page: 1, count: newCount})
+            setSearchParams({page: '1', count: newCount.toString()})
+        }
 
-        // sendQuery(
-        // setSearchParams(
 
-        //
     }
 
     const onChangeSort = (newSort: string) => {
-        // делает студент
 
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
+        setSort(newSort)
+        sendQuery({sort: newSort, count: count, page: page})
+        setSearchParams({page: page.toString(), count: count.toString(), sort: newSort.toString()})
 
-        // sendQuery(
-        // setSearchParams(
 
-        //
     }
 
     useEffect(() => {
@@ -104,10 +106,12 @@ const HW15 = () => {
 
     return (
         <div id={'hw15'}>
+            <div className={s2.line}></div>
             <div className={s2.hwTitle}>Homework #15</div>
+            <div className={s2.line}></div>
 
-            <div className={s2.hw}>
-                {idLoading && <div id={'hw15-loading'} className={s.loading}>Loading...</div>}
+            <div className={s2.hw + ' ' + s.wrapper}>
+                {idLoading && <div id={'hw15-loading'} className={s.loading}><Loader/></div>}
 
                 <SuperPagination
                     page={page}
@@ -130,6 +134,7 @@ const HW15 = () => {
 
                 {mappedTechs}
             </div>
+            <div className={s2.line}></div>
         </div>
     )
 }
